@@ -9,9 +9,12 @@ namespace Room
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
-
+            Start strt = new Start();
+            strt.Init();
+            strt.Run();
         }
     }
 }
