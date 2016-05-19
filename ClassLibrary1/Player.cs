@@ -8,22 +8,22 @@ namespace ClassLibrary1
 {
     class Player
     {
-        Dictionary<string,Item> Inventory = new Dictionary <string, Item>();
+        public Dictionary<string,Item> Inventory = new Dictionary <string, Item>();
+        Room currentRoom { get; set; }
 
-        public string action(string command)
+        public string look()
         {
-            string lcommand = command.ToLower();
-            switch (lcommand)
+            Console.WriteLine(Room.roomDescription);
+        }
+        public string take(string item)
+        {
+            string litem = item.ToLower();
+            switch (litem)
             {
-                case "pick up key":
-                    // if the inventory isnt null AND there is a record for key is null OR the invent val for the key record is 0
-                    if (Inventory != null && (Inventory["key"] == null || Inventory["key"].inventval == 0))
-                    {
-                    }
+                case "key":
                     break;
-            }
 
-            return "";
+            }
         }
     }
 }

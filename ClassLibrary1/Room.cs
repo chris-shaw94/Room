@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
-    class Room
+    public class Room
     {
+        public static string roomDescription;
+        public static List<Item> contents;
     }
 }
