@@ -29,6 +29,7 @@ namespace Room
             {
 
                 Console.WriteLine("Welcome to the awesome game");
+                Console.WriteLine("Press s to start");
                 Console.WriteLine("Press q to quit");
                 string cmd = Console.ReadLine().ToLower();
 

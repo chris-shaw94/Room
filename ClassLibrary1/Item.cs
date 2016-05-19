@@ -15,21 +15,6 @@ namespace ClassLibrary1
             this.description = description;
             this.inventval = inventval;
         }
-        public string itemCheck(string item)
-        {
-            if (Player.Inventory != null && (Player.Inventory[item] == 0 || Player.Inventory[item].inventval == 0))
-            {
-                Player.Inventory.Add(item, new Item("It's a key. Perfect for a lock", 0));
-                Player.Inventory[item].inventval = 1);
-                Console.WriteLine("You pick up the ");
-                Console.Write(item);
-                break;
-            }
-            else
-            {
-                Console.WriteLine("You already did that");
-            }
-            break;
-        }
+
     }
 }
