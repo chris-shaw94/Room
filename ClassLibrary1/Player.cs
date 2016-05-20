@@ -42,10 +42,40 @@ namespace ClassLibrary1
                 Console.Write(x.Key);
             }
         }
+
+
+
+
         public void take(string item)
         {
-            string litem = item.ToLower().Replace("take","");
+            string litem = item.ToLower().Replace("take ","");
+
+            // make sure the inventory is never null, this would cause an error
+            if (Inventory == null)
+                Inventory = new Dictionary<string, Item>();
+
+            // if the item is in the inventory
+            if (Inventory.ContainsKey(litem))
+            {
+                //if the inventory value is more than 0
+                if(Inventory[item].inventval!=0)
+                {
+                    
+                }
+                else
+                {
+                    // inventory value is zero
+                }
+            }
+            else
+            {
+                // item not already in the inventory
+            }
         }
+
+
+
+
         public void command(string comm)
         {
             string lcomm = comm.ToLower();
@@ -63,8 +93,16 @@ namespace ClassLibrary1
                     this.check();
                     break;
                 case "take":
-                      this.take(lcomm);
+                    if(commands[1]=="key")
+                    {
+                        take("key");
                         break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Take what?");
+                        break;
+                    }
                 default:
                     Console.WriteLine("Sorry didn't recognise command");
                     Console.WriteLine("look, take, check, q-quit");
