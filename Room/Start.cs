@@ -20,6 +20,10 @@ namespace Room
             AvailableItems.Add("key", new Item("It's a key. Perfect for a lock", 0));
             AvailableItems.Add("fluff", new Item("Some useless fluff left in your pocket", 1));
             AvailableItems.Add("cup", new Item("A cup. Unfortunately empty", 0));
+
+            Location cellar = new Location("A dank cellar", null, null);
+            cellar.fill(AvailableItems["key"], AvailableItems["cup"], AvailableItems["fluff"], null, null);
+            cellar.directions("A stairs leading up to a door", "A blank wall", "A wall of barrels", "A wall with a light");
         }
 
         // heres where we will kick off your game properly
