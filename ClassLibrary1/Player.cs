@@ -77,7 +77,7 @@ namespace ClassLibrary1
                     this.check();
                     break;
                 case "take":
-                    if(lcomm.Contains("key"))
+                    if(commands[1]=="key")
                     {
                         take("key");
                         break;
