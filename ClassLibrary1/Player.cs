@@ -63,16 +63,21 @@ namespace ClassLibrary1
         public void command(string comm)
         {
             string lcomm = comm.ToLower();
-            switch (lcomm)
+
+            // this creates an array which is another type of list and breaks the command up into the commands entered by the player
+            string[] commands = lcomm.Split(' ');
+
+            // this looks at the first command the player entered
+            switch (commands[0])
             {
                 case "look":
                     this.look();
                     break;
-                case "check inventory":
+                case "check":
                     this.check();
                     break;
                 case "take":
-                    if(lcomm.Contains("take")&&lcomm.Contains("key"))
+                    if(lcomm.Contains("key"))
                     {
                         take("key");
                         break;
@@ -83,6 +88,8 @@ namespace ClassLibrary1
                         break;
                     }
                 default:
+                    Console.WriteLine("Sorry didn't recognise command");
+                    Console.WriteLine("look, take, check, q-quit");
                     break;
             }
         }
