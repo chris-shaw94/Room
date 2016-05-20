@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
-    class Player
+    public class Player
     {
         public Dictionary<string,Item> Inventory = new Dictionary <string, Item>();
         Location currentRoom { get; set; }

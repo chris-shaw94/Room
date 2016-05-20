@@ -10,6 +10,7 @@ namespace Room
     public class Start
     {
         public static Dictionary<string, Item> AvailableItems { get; set; }
+        public static Player yourCharacter{ get; set; }
 
         /// <summary>
         /// We'll use this function to load up your values that you'll need
@@ -24,11 +25,14 @@ namespace Room
             Location cellar = new Location("A dank cellar", new List<Item>(), new List<string>());
             cellar.fill(AvailableItems["key"], AvailableItems["cup"], AvailableItems["fluff"], null, null);
             cellar.directions("A stairs leading up to a door", "A blank wall", "A wall of barrels", "A wall with a light");
+
+            yourCharacter = new Player();
         }
 
         // heres where we will kick off your game properly
         public void Run()
         {
+
             while(true)
             {
 
@@ -39,6 +43,11 @@ namespace Room
 
                 if (cmd == "q")
                     break;
+
+                // this passes the command into the player class
+                yourCharacter.command(cmd);
+
+
             }
 
             Console.WriteLine("Thanks for playing");
