@@ -44,21 +44,7 @@ namespace ClassLibrary1
         }
         public void take(string item)
         {
-            string litem = item.ToLower();
-            switch (litem)
-            {
-                case "key":
-                    itemCheck("key");
-                    break;
-                case "cup":
-                    itemCheck("cup");
-                    break;
-                case "fluff":
-                    itemCheck("fluff");
-                    break;
-                default:
-                    break;
-            }
+            string litem = item.ToLower().Replace("take","");
         }
         public void command(string comm)
         {
@@ -77,16 +63,8 @@ namespace ClassLibrary1
                     this.check();
                     break;
                 case "take":
-                    if(commands[1]=="key")
-                    {
-                        take("key");
+                      this.take(lcomm);
                         break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Take what?");
-                        break;
-                    }
                 default:
                     Console.WriteLine("Sorry didn't recognise command");
                     Console.WriteLine("look, take, check, q-quit");
