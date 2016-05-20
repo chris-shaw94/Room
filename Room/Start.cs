@@ -22,8 +22,10 @@ namespace Room
             AvailableItems.Add("fluff", new Item("Some useless fluff left in your pocket", 1));
             AvailableItems.Add("cup", new Item("A cup. Unfortunately empty", 0));
 
-            Location cellar = new Location("A dank cellar", new List<Item>(), new List<string>());
-            cellar.fill(AvailableItems["key"], AvailableItems["cup"], AvailableItems["fluff"], null, null);
+            Location cellar = new Location("A dank cellar", new List<string>(), new List<string>());
+            cellar.fill("key");
+            cellar.fill("cup");
+            cellar.fill("fluff");
             cellar.directions("A stairs leading up to a door", "A blank wall", "A wall of barrels", "A wall with a light");
 
             yourCharacter = new Player();

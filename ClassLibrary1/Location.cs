@@ -9,21 +9,17 @@ namespace ClassLibrary1
     public class Location
     {
         public string roomDescription;
-        public List<Item> contents;
+        public List<string> contents;
         public List<string> exits;
-        public Location(string descript, List<Item> content, List<string> exit)
+        public Location(string descript, List<string> content, List<string> exit)
         {
             this.roomDescription = descript;
             this.contents = content;
             this.exits = exit;
         }
-        public void fill(Item a, Item b, Item c, Item d, Item e)
+        public void fill(string a)
         {
             this.contents.Add(a);
-            this.contents.Add(b);
-            this.contents.Add(c);
-            this.contents.Add(d);
-            this.contents.Add(e);
         }
         public void directions(string n, string s, string e, string w)
         {
