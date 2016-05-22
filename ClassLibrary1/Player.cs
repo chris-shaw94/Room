@@ -8,7 +8,8 @@ namespace ClassLibrary1
 {
     public class Player
     {
-        public Dictionary<string,Item> Inventory = new Dictionary <string, Item>();
+        public Dictionary<string, Item> Inventory = new Dictionary<string, Item>();
+        public List<Location> playerMap = new List<Location>();
         public Location currentRoom { get; set; }
         public int vcoord = 0;
         public int hcoord = 0;
@@ -39,8 +40,9 @@ namespace ClassLibrary1
         // every item in the game. Would leaving the else part of this statement blank do that
         public void check()
         {
-            foreach(KeyValuePair<string, Item> x in Inventory)
-            {   if (x.Value.inventval == 1)
+            foreach (KeyValuePair<string, Item> x in Inventory)
+            {
+                if (x.Value.inventval == 1)
                 {
                     Console.WriteLine(x.Key);
                     Console.Write(", ");
@@ -48,7 +50,7 @@ namespace ClassLibrary1
                 }
                 else
                 {
-                    
+
                 }
             }
         }
@@ -57,24 +59,64 @@ namespace ClassLibrary1
             switch (way)
             {
                 case "n":
-                    this.vcoord = vcoord + 1;
+                    if ((this.hcoord == -1 && this.vcoord == 0) || (this.hcoord == 0 && this.vcoord == -1))
+                    {
+                    }
+                    else
+                    {
+                        this.vcoord = this.vcoord + 1;
+                    }
+                    if(this.vcoord == 2)
+                    {
+                        this.vcoord = 1;
+                    }                    
                     break;
                 case "s":
-                    this.vcoord = vcoord - 1;
+                    if ((hcoord == 0 && this.vcoord == 0) || (this.hcoord == -1 && this.vcoord == 1))
+                    {
+                    }
+                    else
+                    {
+                        this.vcoord = this.vcoord - 1;
+                    }
+                    if(this.vcoord == -2)
+                    {
+                        this.vcoord = -1;
+                    }
                     break;
                 case "w":
-                    this.hcoord = hcoord - 1;
+                    if ((hcoord == 0 && this.vcoord == 0) || (this.hcoord == 1 && this.vcoord == 0))
+                    {
+                    }
+                    else
+                    {
+                        this.hcoord = this.hcoord - 1;
+                    }
+                    if(this.hcoord == -2)
+                    {
+                        this.hcoord = -1;
+                    }
                     break;
                 case "e":
-                    this.hcoord = hcoord + 1;
+                    if ((hcoord == 0 && this.vcoord == 0) || (this.hcoord == -1 && this.vcoord == 0))
+                    {
+                    }
+                    else
+                    {
+                        this.hcoord = this.hcoord + 1;
+                    }
+                    if(this.hcoord == 2)
+                    {
+                        this.hcoord = 1;
+                    }
                     break;
             }
         }
         public void take(string item)
         {
-            string litem = item.ToLower().Replace("take ","");
+            string litem = item.ToLower().Replace("take ", "");
 
-            // make sure the inventory is never null, this would cause an error
+            // make sure the ventory is never null, this would cause an error
             if (Inventory == null)
                 Inventory = new Dictionary<string, Item>();
 
@@ -82,13 +124,12 @@ namespace ClassLibrary1
             if (Inventory.ContainsKey(litem))
             {
                 //if the inventory value is more than 0
-                if(Inventory[item].inventval!=0)
+                if (Inventory[item].inventval != 0)
                 {
                     Console.WriteLine("You're already carrying that.");
                 }
                 else
                 {
-                    Inventory[litem].inventval = 1;
                     // inventory value is zero
                 }
             }
@@ -131,7 +172,7 @@ namespace ClassLibrary1
                     }
                     break;
                 case 1:
-                    switch(h)
+                    switch (h)
                     {
                         case 0:
                             this.rnum = 3;
@@ -139,13 +180,13 @@ namespace ClassLibrary1
                         case 1:
                             this.rnum = 4;
                             break;
-                        case -2:
+                        case -1:
                             this.rnum = 5;
                             break;
                     }
                     break;
                 case -1:
-                     switch(h)
+                    switch (h)
                     {
                         case 0:
                             this.rnum = 6;
@@ -159,6 +200,21 @@ namespace ClassLibrary1
                     }
                     break;
             }
+        }
+        public void where()
+        {
+            for (int i = 0; i < this.playerMap.Count; i++)
+            {
+                if(this.rnum == i)
+                {
+                    this.currentRoom = this.playerMap[i];
+                }
+            }
+        }
+        public void locat()
+        {
+            this.place(this.vcoord, this.hcoord);
+            this.where();
         }
         public void command(string comm)
         {
@@ -181,23 +237,30 @@ namespace ClassLibrary1
                     break;
                 case "north":
                     this.go("n");
-                    this.place(this.vcoord, this.hcoord);
+                    this.locat();
+                    this.look();
                     break;
                 case "south":
                     this.go("s");
-                    this.place(this.vcoord, this.hcoord);
+                    this.locat();
+                    this.look();
                     break;
                 case "east":
                     this.go("e");
-                    this.place(this.vcoord, this.hcoord);
+                    this.locat();
+                    this.look();
                     break;
                 case "west":
                     this.go("w");
-                    this.place(this.vcoord, this.hcoord);
+                    this.locat();
+                    this.look();
+                    break;
+                case "s":
                     break;
                 default:
                     Console.WriteLine("Sorry didn't recognise command");
-                    Console.WriteLine("look, take, check, q-quit");
+                    Console.WriteLine("Commands: look, take, check, q-quit");
+                    Console.WriteLine("Directional commands: north, south, east, west");
                     break;
             }
         }
