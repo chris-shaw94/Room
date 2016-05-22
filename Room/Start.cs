@@ -23,6 +23,7 @@ namespace Room
                 this._character = value;
             }
         }
+        
         /// <summary>
         /// We'll use this function to load up your values that you'll need
         /// </summary>
@@ -33,7 +34,6 @@ namespace Room
             AvailableItems.Add("key", new Item("It's a key. Perfect for a lock", 0));
             AvailableItems.Add("fluff", new Item("Some useless fluff left in your pocket", 1));
             AvailableItems.Add("cup", new Item("A cup. Unfortunately empty", 0));
-            
             Run();
         }
         public void where()
@@ -111,7 +111,7 @@ namespace Room
             Location toilet = new Location("A bathroom with a weird, rotting smell", new List<string>(), new List<string>());
             toilet.directions("", "a door back to the bedroom", "", "");
             Map.Add(toilet);
-
+            yourCharacter.currentRoom = cellar;
             foreach (KeyValuePair<string, Item> o in AvailableItems)
             {
                 yourCharacter.Inventory.Add(o.Key, o.Value);
