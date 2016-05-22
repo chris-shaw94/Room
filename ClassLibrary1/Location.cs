@@ -11,8 +11,8 @@ namespace ClassLibrary1
         public string roomDescription;
         public List<string> contents;
         public List<string> exits;
-        public Location(string descript, List<string> content, List<string> exit)
-        {
+        public Location(string descript, List<string> content, List<string> exit) { 
+        
             this.roomDescription = descript;
             this.contents = content;
             this.exits = exit;

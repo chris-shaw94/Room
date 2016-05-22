@@ -11,7 +11,6 @@ namespace Room
     {
         public static Dictionary<string, Item> AvailableItems { get; set; }
         public static Player yourCharacter{ get; set; }
-
         /// <summary>
         /// We'll use this function to load up your values that you'll need
         /// </summary>
@@ -28,7 +27,13 @@ namespace Room
             cellar.fill("fluff");
             cellar.directions("A stairs leading up to a door", "A blank wall", "A wall of barrels", "A wall with a light");
 
-            yourCharacter = new Player();
+            Player yourCharacter = new Player();
+
+            yourCharacter.currentRoom = cellar;
+            foreach(KeyValuePair<string, Item> o in AvailableItems)
+            {
+                yourCharacter.Inventory.Add(o.Key, o.Value);
+            }
         }
 
         // heres where we will kick off your game properly
@@ -45,13 +50,15 @@ namespace Room
 
                 if (cmd == "q")
                     break;
-
+                if (cmd == "s")
+                {
+                    yourCharacter.look();
+                }
                 // this passes the command into the player class
                 yourCharacter.command(cmd);
 
 
             }
-
             Console.WriteLine("Thanks for playing");
             Console.WriteLine("press enter");
             Console.ReadLine().ToLower();

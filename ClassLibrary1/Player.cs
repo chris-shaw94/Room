@@ -9,35 +9,20 @@ namespace ClassLibrary1
     public class Player
     {
         public Dictionary<string,Item> Inventory = new Dictionary <string, Item>();
-        Location currentRoom { get; set; }
-
-        //Not sure if I need this itemCheck function any more?
-        //At least, not if take() is working properly.
-        public void itemCheck(string item)
-        {
-            if (Inventory != null && (Inventory[item] == null || Inventory[item].inventval == 0))
-            {
-                Inventory.Add(item, new Item(item, 0));
-                Inventory[item].inventval = 1;
-                Console.WriteLine("You pick up the ");
-                Console.Write(item);
-            }
-            else
-            {
-                Console.WriteLine("You already did that");
-            }
-        }
+        public Location currentRoom { get; set; }
+        
+        //Deleted the checkItem() function, seemed useless.
         public void look()
         {
             Console.WriteLine(currentRoom.roomDescription);
             Console.WriteLine("To the north you see currentRoom.exits[0]");
             Console.WriteLine("To the south you see currentRoom.exits[1]");
-            Console.WriteLine("To the east you see currentRoom.exits[2]");
+            Console.WriteLine("To the east e currentRoom.exits[2]");
             Console.WriteLine("To the west you see currentRoom.exits[3]");
         }
         // An inventory check which should tell the user the items they're holding, followed by a description
-        // Obviously only want to print out descriptions of items the user has already picked up, rather than just
-        // every item in the game. Would leaving the else part of this statement blank do that?
+        // bviously only want to print out descriptions of items the user has already picked up, rather than just
+        // every item in the game. Would leaving the else part of this statement blank do that
         public void check()
         {
             foreach(KeyValuePair<string, Item> x in Inventory)
