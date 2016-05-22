@@ -10,15 +10,29 @@ namespace ClassLibrary1
     {
         public Dictionary<string,Item> Inventory = new Dictionary <string, Item>();
         public Location currentRoom { get; set; }
-        
-        //Deleted the checkItem() function, seemed useless.
+        public int vcoord = 0;
+        public int hcoord = 0;
+        public int rnum = 0;
         public void look()
         {
-            Console.WriteLine(currentRoom.roomDescription);
-            Console.WriteLine("To the north you see currentRoom.exits[0]");
-            Console.WriteLine("To the south you see currentRoom.exits[1]");
-            Console.WriteLine("To the east e currentRoom.exits[2]");
-            Console.WriteLine("To the west you see currentRoom.exits[3]");
+            Console.Write(this.currentRoom.roomDescription);
+            Console.WriteLine();
+            if (this.currentRoom.exits[0] != "")
+            {
+                Console.WriteLine("To the north you see {0}", currentRoom.exits[0]);
+            }
+            if (this.currentRoom.exits[1] != "")
+            {
+                Console.WriteLine("To the south you see {0}", currentRoom.exits[1]);
+            }
+            if (this.currentRoom.exits[2] != "")
+            {
+                Console.WriteLine("To the east {0}", currentRoom.exits[2]);
+            }
+            if (this.currentRoom.exits[3] != "")
+            {
+                Console.WriteLine("To the west you see {0}", currentRoom.exits[3]);
+            }
         }
         // An inventory check which should tell the user the items they're holding, followed by a description
         // bviously only want to print out descriptions of items the user has already picked up, rather than just
@@ -36,6 +50,24 @@ namespace ClassLibrary1
                 {
                     
                 }
+            }
+        }
+        public void go(string way)
+        {
+            switch (way)
+            {
+                case "n":
+                    this.vcoord = vcoord + 1;
+                    break;
+                case "s":
+                    this.vcoord = vcoord - 1;
+                    break;
+                case "w":
+                    this.hcoord = hcoord - 1;
+                    break;
+                case "e":
+                    this.hcoord = hcoord + 1;
+                    break;
             }
         }
         public void take(string item)
@@ -80,6 +112,54 @@ namespace ClassLibrary1
                 }
             }
         }
+        public void place(int v, int h)
+        {
+            switch (v)
+            {
+                case 0:
+                    switch (h)
+                    {
+                        case 0:
+                            this.rnum = 0;
+                            break;
+                        case 1:
+                            this.rnum = 1;
+                            break;
+                        case -1:
+                            this.rnum = 2;
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch(h)
+                    {
+                        case 0:
+                            this.rnum = 3;
+                            break;
+                        case 1:
+                            this.rnum = 4;
+                            break;
+                        case -2:
+                            this.rnum = 5;
+                            break;
+                    }
+                    break;
+                case -1:
+                     switch(h)
+                    {
+                        case 0:
+                            this.rnum = 6;
+                            break;
+                        case 1:
+                            this.rnum = 7;
+                            break;
+                        case -1:
+                            this.rnum = 8;
+                            break;
+                    }
+                    break;
+            }
+        }
         public void command(string comm)
         {
             string lcomm = comm.ToLower();
@@ -98,6 +178,22 @@ namespace ClassLibrary1
                     break;
                 case "take":
                     this.take(lcomm);
+                    break;
+                case "north":
+                    this.go("n");
+                    this.place(this.vcoord, this.hcoord);
+                    break;
+                case "south":
+                    this.go("s");
+                    this.place(this.vcoord, this.hcoord);
+                    break;
+                case "east":
+                    this.go("e");
+                    this.place(this.vcoord, this.hcoord);
+                    break;
+                case "west":
+                    this.go("w");
+                    this.place(this.vcoord, this.hcoord);
                     break;
                 default:
                     Console.WriteLine("Sorry didn't recognise command");
