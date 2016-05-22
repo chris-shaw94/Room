@@ -14,7 +14,7 @@ namespace Room
         {
             Start strt = new Start();
             strt.Init();
-            strt.Run();
+        
            
         }
     }

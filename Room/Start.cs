@@ -10,7 +10,20 @@ namespace Room
     public class Start
     {
         public static Dictionary<string, Item> AvailableItems { get; set; }
-        public static Player yourCharacter{ get; set; }
+
+        private Player _character { get; set; }
+        public Player yourCharacter
+        {
+            get
+            {
+                return this._character;
+            }
+            set
+            {
+                this._character = value;
+            }
+        }
+        
         /// <summary>
         /// We'll use this function to load up your values that you'll need
         /// </summary>
@@ -21,26 +34,30 @@ namespace Room
             AvailableItems.Add("fluff", new Item("Some useless fluff left in your pocket", 1));
             AvailableItems.Add("cup", new Item("A cup. Unfortunately empty", 0));
 
+           
+           
+            Run();
+        }
+
+        // heres where we will kick off your game properly
+        public void Run()
+        {
             Location cellar = new Location("A dank cellar", new List<string>(), new List<string>());
             cellar.fill("key");
             cellar.fill("cup");
             cellar.fill("fluff");
             cellar.directions("A stairs leading up to a door", "A blank wall", "A wall of barrels", "A wall with a light");
 
+
             Player yourCharacter = new Player();
 
             yourCharacter.currentRoom = cellar;
-            foreach(KeyValuePair<string, Item> o in AvailableItems)
+            foreach (KeyValuePair<string, Item> o in AvailableItems)
             {
                 yourCharacter.Inventory.Add(o.Key, o.Value);
             }
-        }
 
-        // heres where we will kick off your game properly
-        public void Run()
-        {
-
-            while(true)
+            while (true)
             {
 
                 Console.WriteLine("Welcome to the awesome game");
