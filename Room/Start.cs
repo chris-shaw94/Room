@@ -33,19 +33,23 @@ namespace Room
             AvailableItems.Add("key", new Item("It's a key. Perfect for a lock", 0));
             AvailableItems.Add("fluff", new Item("Some useless fluff left in your pocket", 1));
             AvailableItems.Add("cup", new Item("A cup. Unfortunately empty", 0));
-            Run();
-        }
-        // heres where we will kick off your game properly
-        public void Run()
-        {
 
-            Player yourCharacter = new Player();
+            _character = new Player();
+
             Location cellar = new Location("You're standing in an uncomfortably damp cellar", new List<string>(), new List<string>());
             cellar.fill("key");
             cellar.fill("cup");
             cellar.fill("fluff");
             cellar.directions("a stairs leading up to a door", "", "", "");
-            yourCharacter.currentRoom = cellar;
+
+            _character.currentRoom = cellar;
+
+            foreach (KeyValuePair<string, Item> o in AvailableItems)
+            {
+                _character.Inventory.Add(o.Key, o.Value);
+            }
+
+
             Location kitchen = new Location("You're in a brightly lit kitchen", new List<string>(), new List<string>());
             kitchen.directions("", "a stairs leading to a dark cellar", "a door to the hall", "a set of double doors");
 
@@ -70,27 +74,30 @@ namespace Room
             Location toilet = new Location("A bathroom with a weird, rotting smell", new List<string>(), new List<string>());
             toilet.directions("", "a door back to the bedroom", "", "");
             
-
-            foreach (KeyValuePair<string, Item> o in AvailableItems)
+            if (_character.playerMap.Count < 9)
             {
-                yourCharacter.Inventory.Add(o.Key, o.Value);
+                _character.playerMap.Add(cellar);
+                _character.playerMap.Add(conservatory);
+                _character.playerMap.Add(toilet);
+                _character.playerMap.Add(kitchen);
+                _character.playerMap.Add(sittingRoom);
+                _character.playerMap.Add(diningRoom);
+                _character.playerMap.Add(landing);
+                _character.playerMap.Add(hall);
+                _character.playerMap.Add(bedroom);
             }
+            
+            Run();
+        }
+        // heres where we will kick off your game properly
+        public void Run()
+        {
 
-            if(yourCharacter.playerMap.Count < 9)
-            {
-                yourCharacter.playerMap.Add(cellar);
-                yourCharacter.playerMap.Add(conservatory);
-                yourCharacter.playerMap.Add(toilet);
-                yourCharacter.playerMap.Add(kitchen);
-                yourCharacter.playerMap.Add(sittingRoom);
-                yourCharacter.playerMap.Add(diningRoom);
-                yourCharacter.playerMap.Add(landing);
-                yourCharacter.playerMap.Add(hall);
-                yourCharacter.playerMap.Add(bedroom);
-            }
+            
             Console.WriteLine("Welcome to the awesome game");
             Console.WriteLine("Press s to start");
             Console.WriteLine("Press q to quit");
+
             while (true)
             {
                 string cmd = Console.ReadLine().ToLower();
