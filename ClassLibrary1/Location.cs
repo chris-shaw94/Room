@@ -10,8 +10,8 @@ namespace ClassLibrary1
     {
         public string roomDescription;
         public List<string> contents;
-        public List<string> exits;
-        public Location(string descript, List<string> content, List<string> exit) { 
+        public Dictionary<string,Location> exits;
+        public Location(string descript, List<string> content, Dictionary<string, Location> exit) { 
         
             this.roomDescription = descript;
             this.contents = content;
@@ -21,12 +21,12 @@ namespace ClassLibrary1
         {
             this.contents.Add(a);
         }
-        public void directions(string n, string s, string e, string w)
+        public void directions(List<KeyValuePair<string, Location>> locations)
         {
-            this.exits.Add(n);
-            this.exits.Add(s);
-            this.exits.Add(e);
-            this.exits.Add(w);
+            foreach (KeyValuePair<string, Location> kvp in locations)
+            {
+                this.exits.Add(kvp.Key,kvp.Value);
+            }
         }
 
     }
