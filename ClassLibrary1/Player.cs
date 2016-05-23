@@ -8,6 +8,7 @@ namespace ClassLibrary1
 {
     public class Player
     {
+        public Location emptyRoom = new Location("", new List<string>(), new Dictionary<string, Location>(), new List<string>());
         public Dictionary<string, Item> Inventory = new Dictionary<string, Item>();
         public List<Location> playerMap = new List<Location>();
         public Location currentRoom { get; set; }
@@ -18,21 +19,21 @@ namespace ClassLibrary1
         {
             Console.Write(this.currentRoom.roomDescription);
             Console.WriteLine();
-            if (this.currentRoom.exits[0] != "")
+            if (this.currentRoom.exits["north"] != this.emptyRoom)
             {
-                Console.WriteLine("To the north you see {0}", currentRoom.exits[0]);
+                Console.WriteLine("To the north you see {0}", currentRoom.output[0].ToLower());
             }
-            if (this.currentRoom.exits[1] != "")
+            if (this.currentRoom.exits["south"] != this.emptyRoom)
             {
-                Console.WriteLine("To the south you see {0}", currentRoom.exits[1]);
+                Console.WriteLine("To the south you see {0}", currentRoom.output[1].ToLower());
             }
-            if (this.currentRoom.exits[2] != "")
+            if (this.currentRoom.exits["east"] != this.emptyRoom)
             {
-                Console.WriteLine("To the east {0}", currentRoom.exits[2]);
+                Console.WriteLine("To the east {0}", currentRoom.output[2].ToLower());
             }
-            if (this.currentRoom.exits[3] != "")
+            if (this.currentRoom.exits["west"] != this.emptyRoom)
             {
-                Console.WriteLine("To the west you see {0}", currentRoom.exits[3]);
+                Console.WriteLine("To the west you see {0}", currentRoom.output[3].ToLower());
             }
         }
         // An inventory check which should tell the user the items they're holding, followed by a description
@@ -52,64 +53,6 @@ namespace ClassLibrary1
                 {
 
                 }
-            }
-        }
-        public void go(string way)
-        {
-            switch (way)
-            {
-                case "n":
-                    if ((this.hcoord == -1 && this.vcoord == 0) || (this.hcoord == 0 && this.vcoord == -1))
-                    {
-                    }
-                    else
-                    {
-                        this.vcoord = this.vcoord + 1;
-                    }
-                    if(this.vcoord == 2)
-                    {
-                        this.vcoord = 1;
-                    }                    
-                    break;
-                case "s":
-                    if ((hcoord == 0 && this.vcoord == 0) || (this.hcoord == -1 && this.vcoord == 1))
-                    {
-                    }
-                    else
-                    {
-                        this.vcoord = this.vcoord - 1;
-                    }
-                    if(this.vcoord == -2)
-                    {
-                        this.vcoord = -1;
-                    }
-                    break;
-                case "w":
-                    if ((hcoord == 0 && this.vcoord == 0) || (this.hcoord == 1 && this.vcoord == 0))
-                    {
-                    }
-                    else
-                    {
-                        this.hcoord = this.hcoord - 1;
-                    }
-                    if(this.hcoord == -2)
-                    {
-                        this.hcoord = -1;
-                    }
-                    break;
-                case "e":
-                    if ((hcoord == 0 && this.vcoord == 0) || (this.hcoord == -1 && this.vcoord == 0))
-                    {
-                    }
-                    else
-                    {
-                        this.hcoord = this.hcoord + 1;
-                    }
-                    if(this.hcoord == 2)
-                    {
-                        this.hcoord = 1;
-                    }
-                    break;
             }
         }
         public void take(string item)
@@ -153,68 +96,12 @@ namespace ClassLibrary1
                 }
             }
         }
-        public void place(int v, int h)
+        public void go(string way)
         {
-            switch (v)
+            if (this.currentRoom.exits[way] != this.emptyRoom)
             {
-                case 0:
-                    switch (h)
-                    {
-                        case 0:
-                            this.rnum = 0;
-                            break;
-                        case 1:
-                            this.rnum = 1;
-                            break;
-                        case -1:
-                            this.rnum = 2;
-                            break;
-                    }
-                    break;
-                case 1:
-                    switch (h)
-                    {
-                        case 0:
-                            this.rnum = 3;
-                            break;
-                        case 1:
-                            this.rnum = 4;
-                            break;
-                        case -1:
-                            this.rnum = 5;
-                            break;
-                    }
-                    break;
-                case -1:
-                    switch (h)
-                    {
-                        case 0:
-                            this.rnum = 6;
-                            break;
-                        case 1:
-                            this.rnum = 7;
-                            break;
-                        case -1:
-                            this.rnum = 8;
-                            break;
-                    }
-                    break;
+                this.currentRoom = this.currentRoom.exits[way];
             }
-        }
-        public void where()
-        {
-            for (int i = 0; i < this.playerMap.Count; i++)
-            {
-                if(this.rnum == i)
-                {
-                    this.currentRoom = this.playerMap[i];
-                }
-            }
-        }
-        public void locat()
-        {
-            this.place(this.vcoord, this.hcoord);
-            this.where();
         }
         public void command(string comm)
         {
@@ -236,23 +123,19 @@ namespace ClassLibrary1
                     this.take(lcomm);
                     break;
                 case "north":
-                    this.go("n");
-                    this.locat();
+                    this.go(lcomm);
                     this.look();
                     break;
                 case "south":
-                    this.go("s");
-                    this.locat();
+                    this.go(lcomm);
                     this.look();
                     break;
                 case "east":
-                    this.go("e");
-                    this.locat();
+                    this.go(lcomm);
                     this.look();
                     break;
                 case "west":
-                    this.go("w");
-                    this.locat();
+                    this.go(lcomm);
                     this.look();
                     break;
                 case "s":
