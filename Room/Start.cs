@@ -71,6 +71,7 @@ namespace Room
 
             cellar.directions(kitchen, yourCharacter.emptyRoom , yourCharacter.emptyRoom , yourCharacter.emptyRoom);
             cellar.RuleSet.Add("north", new Rule() { RuleDescription="The door is locked", Requirement = "key" });
+            cellar.contents.Add("key");
 
             kitchen.directions(yourCharacter.emptyRoom, cellar, sittingRoom, diningRoom);
             diningRoom.directions(yourCharacter.emptyRoom, yourCharacter.emptyRoom, kitchen, yourCharacter.emptyRoom);
