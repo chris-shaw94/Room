@@ -12,13 +12,17 @@ namespace ClassLibrary1
         public List<string> contents;
         public Dictionary<string, Location> exits;
         public List<string> output;
-        public Location(string descript, List<string> content, Dictionary<string, Location> exit, List<string> output)
+        public Dictionary<string, Rule> RuleSet = new Dictionary<string, Rule>();
+
+
+        public Location(string descript)
         {
 
             this.roomDescription = descript;
-            this.contents = content;
-            this.exits = exit;
-            this.output = output;
+            this.contents = new List<string>();
+            this.exits = new Dictionary<string, Location>();
+            this.output = new List<string>();
+            this.RuleSet = new Dictionary<string, Rule>();
         }
         public void fill(string a)
         {

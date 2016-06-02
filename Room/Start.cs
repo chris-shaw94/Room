@@ -36,7 +36,7 @@ namespace Room
 
             _character = new Player();
 
-            Location cellar = new Location("You're standing in an uncomfortably damp cellar", new List<string>(), new Dictionary<string, Location>(), new List<string>());
+            Location cellar = new Location("You're standing in an uncomfortably damp cellar");
             _character.currentRoom = cellar;
             cellar.oput("A stairs leading up","","",""); 
             foreach (KeyValuePair<string, Item> o in AvailableItems)
@@ -45,31 +45,33 @@ namespace Room
             }
 
 
-            Location kitchen = new Location("You're in a brightly lit kitchen", new List<string>(), new Dictionary<string, Location>(), new List<string>());
+            Location kitchen = new Location("You're in a brightly lit kitchen");
             kitchen.oput("", "A stairs leading down", "A door", "A set of double doors");
 
-            Location diningRoom = new Location("A large dining room with a long, oak table", new List<string>(), new Dictionary<string, Location>(), new List<string>());
+            Location diningRoom = new Location("A large dining room with a long, oak table");
             diningRoom.oput("", "", "A door", "");
 
-            Location sittingRoom = new Location("You are relaxing in a fully furnished sitting room", new List<string>(), new Dictionary<string, Location>(), new List<string>());
+            Location sittingRoom = new Location("You are relaxing in a fully furnished sitting room");
             sittingRoom.oput("", "A set of glass double doors", "", "A door to the kitchen");
 
-            Location conservatory = new Location("You are standing in a very relaxing conservatory", new List<string>(), new Dictionary<string, Location>(), new List<string>());
+            Location conservatory = new Location("You are standing in a very relaxing conservatory");
             conservatory.oput("The glass doors to the sitting room", "A small door", "", "");
 
-            Location hall = new Location("You find yourself standing in a hallway", new List<string>(), new Dictionary<string, Location>(), new List<string>());
+            Location hall = new Location("You find yourself standing in a hallway");
             hall.oput("A small door","", "","Some stairs");
 
-            Location landing = new Location("You're on the landing of a stairway", new List<string>(), new Dictionary<string, Location>(), new List<string>());
+            Location landing = new Location("You're on the landing of a stairway");
             landing.oput("","","The stairs", "A bedroom door");
 
-            Location bedroom = new Location("You find yourself in what looks like an old woman's bedroom", new List<string>(), new Dictionary<string, Location>(), new List<string>());
+            Location bedroom = new Location("You find yourself in what looks like an old woman's bedroom");
             bedroom.oput("A toilet door", "", "The landing door", "");
 
-            Location toilet = new Location("A bathroom with a weird, rotting smell", new List<string>(), new Dictionary<string, Location>(), new List<string>());
+            Location toilet = new Location("A bathroom with a weird, rotting smell");
             toilet.oput("", "", "", "");
 
             cellar.directions(kitchen, yourCharacter.emptyRoom , yourCharacter.emptyRoom , yourCharacter.emptyRoom);
+            cellar.RuleSet.Add("north", new Rule() { RuleDescription="The door is locked", Requirement = "key" });
+
             kitchen.directions(yourCharacter.emptyRoom, cellar, sittingRoom, diningRoom);
             diningRoom.directions(yourCharacter.emptyRoom, yourCharacter.emptyRoom, kitchen, yourCharacter.emptyRoom);
             sittingRoom.directions(yourCharacter.emptyRoom, conservatory, yourCharacter.emptyRoom, kitchen);

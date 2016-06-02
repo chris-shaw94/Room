@@ -8,7 +8,7 @@ namespace ClassLibrary1
 {
     public class Player
     {
-        public Location emptyRoom = new Location("", new List<string>(), new Dictionary<string, Location>(), new List<string>());
+        public Location emptyRoom = new Location("");
         public Dictionary<string, Item> Inventory = new Dictionary<string, Item>();
         public List<Location> playerMap = new List<Location>();
         public Location currentRoom { get; set; }
@@ -100,7 +100,14 @@ namespace ClassLibrary1
         {
             if (this.currentRoom.exits[way] != this.emptyRoom)
             {
-                this.currentRoom = this.currentRoom.exits[way];
+                if (this.currentRoom.RuleSet.ContainsKey(way))
+                {
+                    Console.WriteLine(this.currentRoom.RuleSet[way].RuleDescription);
+                }
+                else
+                {
+                    this.currentRoom = this.currentRoom.exits[way];
+                }
             }
         }
         public void command(string comm)
