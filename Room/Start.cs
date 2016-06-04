@@ -38,7 +38,7 @@ namespace Room
 
             Location cellar = new Location("You're standing in an uncomfortably damp cellar");
             _character.currentRoom = cellar;
-            cellar.oput("A stairs leading up","","",""); 
+            cellar.oput("A stairs leading up","","","");
             foreach (KeyValuePair<string, Item> o in AvailableItems)
             {
                 _character.Inventory.Add(o.Key, o.Value);

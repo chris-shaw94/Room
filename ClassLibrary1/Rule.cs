@@ -10,5 +10,5 @@ namespace ClassLibrary1
     {
         public string RuleDescription { get; set; }
         public string Requirement { get; set; }
-    }
+}
 }

@@ -110,10 +110,21 @@ namespace ClassLibrary1
                 }
             }
         }
+        public void use(string command)
+        {
+            string luse = command.ToLower().Replace("use ", "");
+            foreach (KeyValuePair<string, Rule> k in this.currentRoom.RuleSet)
+            {
+                if(k.Value.Requirement == luse)
+                {
+                    currentRoom.RuleSet.Remove(k);
+                }
+            }
+        }
         public void command(string comm)
         {
             string lcomm = comm.ToLower();
-
+            
             // this creates an array which is another type of list and breaks the command up into the commands entered by the player
             string[] commands = lcomm.Split(' ');
 
@@ -146,6 +157,9 @@ namespace ClassLibrary1
                     this.look();
                     break;
                 case "s":
+                    break;
+                case "use":
+                    this.use(lcomm);
                     break;
                 default:
                     Console.WriteLine("Sorry didn't recognise command");
