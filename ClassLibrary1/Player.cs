@@ -45,9 +45,9 @@ namespace ClassLibrary1
             {
                 if (x.Value.inventval == 1)
                 {
-                    Console.WriteLine(x.Key);
-                    Console.Write(", ");
+                    Console.WriteLine(x.Key, "{0}");
                     Console.Write(x.Value.description);
+                    Console.WriteLine();
                 }
                 else
                 {
@@ -67,12 +67,16 @@ namespace ClassLibrary1
             if (Inventory.ContainsKey(litem))
             {
                 //if the inventory value is more than 0
-                if (Inventory[item].inventval != 0)
+                if (Inventory[litem].inventval != 0)
                 {
                     Console.WriteLine("You're already carrying that.");
                 }
                 else
                 {
+                    Inventory[litem].inventval = 1;
+                    Console.WriteLine("You pick up the ");
+                    Console.WriteLine(litem);
+                    currentRoom.contents.Remove(litem);
                     // inventory value is zero
                 }
             }
@@ -81,14 +85,6 @@ namespace ClassLibrary1
             // Should check to see if the room contains anything called litem and then  picks it up. It then removes the item from the list of contents.
             // else, if it's already been picked up, says it cannot see the item in the room.
             {
-                if (currentRoom.contents.Contains(litem))
-                {
-                    Inventory[item].inventval = 1;
-                    Console.WriteLine("You pick up the ");
-                    Console.Write(litem);
-                    currentRoom.contents.Remove(litem);
-                }
-                else
                 {
                     Console.WriteLine("You cannot see a ");
                     Console.Write(litem);
@@ -115,9 +111,17 @@ namespace ClassLibrary1
             string luse = command.ToLower().Replace("use ", "");
             foreach (KeyValuePair<string, Rule> k in this.currentRoom.RuleSet)
             {
-                if(k.Value.Requirement == luse)
+                if(k.Value.Requirement == luse && Inventory[luse].inventval != 0)
                 {
-                    currentRoom.RuleSet.Remove(k);
+                    currentRoom.RuleSet.Remove(k.Key);
+                    Console.WriteLine("You use the ");
+                    Console.Write(luse);
+                    Console.WriteLine();
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("That doesn't work");
                 }
             }
         }
@@ -163,7 +167,7 @@ namespace ClassLibrary1
                     break;
                 default:
                     Console.WriteLine("Sorry didn't recognise command");
-                    Console.WriteLine("Commands: look, take, check, q-quit");
+                    Console.WriteLine("Commands: look, take, check, use ____, q-quit");
                     Console.WriteLine("Directional commands: north, south, east, west");
                     break;
             }
