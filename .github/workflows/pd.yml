@@ -16,9 +16,9 @@
     # Label color to set, when potential duplicates are detected.
     threshold: # optional, default is 0.6
     # Comment to post when potential duplicates are detected.
-    comment: # optional, default is Potential duplicates: {{#issues}}
-  - [#{{ number }}] {{ title }} ({{ accuracy }}%)
-{{/issues}}
+    comment: # optional, default is Potential duplicates: 
+    {{#issues}} - [#{{ number }}] {{ title }} ({{ accuracy }}%)
+    {{/issues}}
 
     # Reactions to be add to comment when potential duplicates are detected.
     reactions: # optional
