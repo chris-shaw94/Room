@@ -32,3 +32,4 @@ jobs:
             Potential duplicates: {{#issues}}
               - [#{{ number }}] {{ title }} ({{ accuracy }}%)
             {{/issues}}
+ 
