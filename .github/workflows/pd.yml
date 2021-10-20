@@ -19,6 +19,3 @@
     comment: {{#issues}}
    [#{{ number }}] {{ title }} ({{ accuracy }}%)
    {{/issues}}
-
-    # Reactions to be add to comment when potential duplicates are detected.
-    reactions: # optional
