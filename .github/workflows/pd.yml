@@ -18,4 +18,3 @@
     # Comment to post when potential duplicates are detected.
     comment: {{#issues}}
    [#{{ number }}] {{ title }} ({{ accuracy }}%)
-   {{/issues}}
